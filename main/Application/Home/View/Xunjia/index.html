@@ -1,0 +1,822 @@
+<include file='Template:header' />
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/H-ui.min.css">
+<style>
+  .wrap{
+    margin-top:50px;
+    width:1000px;
+    margin:0 auto;
+  }
+  @charset "UTF-8";
+@import '../base/utils';
+
+.page_section {
+  min-height: 300px;
+}
+.content-wrap{
+  /*position: relative;*/
+  width: 1000px;
+  margin:0 auto;
+}
+.content-section{
+  background-color: #fff;
+}
+.content-section+.content-section{
+  margin-top: 10px;
+}
+.mod-title{
+  width:100%;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 30px 0 0px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.mod-title-word{
+  display: block;
+  height: 16px;
+  line-height:16px;
+  border-left: 4px solid #ea544a;
+  margin-top: 22px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  padding-left: 10px;
+}
+.mod-title-tips{
+  display: block;
+  font-size: 12px;
+  color: #999;
+  padding-left: 10px;
+}
+.confirm-box{
+  display: none;
+  position: absolute;
+  color: #fff;
+  font-size: 12px;
+  width: 120px;
+  padding:15px 20px 15px;
+  top: 105px;
+  right: 138px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  background-color: #686a6b;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 30;
+}
+.confirm-title{
+  text-align: center;
+  display: block;
+  height: 25px;
+  line-height: 25px;
+  padding-bottom: 12px;
+}
+.confirm-btn{
+  display: block;
+  height: 20px;
+  width: 50px;
+  line-height: 20px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+.yes-btn{
+  float: left;
+  background-color: #2897ff;
+}
+.no-btn{
+  float: right;
+  background-color: #fff;
+  color: #666;
+}
+// 模板记账 end
+
+
+
+.account-type-select{
+  position: relative;
+  float: left;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  width: 102px;
+  margin-right: 19px;
+  border: 1px solid #d2d2d2;
+  cursor: pointer;
+}
+.account-type-select.active{
+  border-color: #0080cc;
+  color: #0080cc;
+}
+.account-type-select.active em{
+  position: absolute;
+  right: 0px;
+  bottom: -1px;
+  height: 15px;
+  width: 14px;
+  background-image: url(/styles/images/member/account-icons.png);
+  background-position: -270px 0;
+  @include ratioBackground($url:'/styles/images/member/account-icons-ret.png', $size: 420px 420px, $x:-270px, $y:-0px);
+}
+
+
+
+.account-type-box{
+  display: none;
+  padding-bottom: 50px;
+}
+.account-type-box.active{
+  display: block;
+}
+
+
+
+.account-type,.form-list-item {
+  height: 57px;
+}
+.form-list-item-template{
+  height: 37px;
+}
+.dividing-line-item{
+  position: relative;
+  height: 21px;
+  line-height: 21px;
+  padding: 0 30px 20px;
+}
+.dividing-line{
+  height: 10px;
+  border-bottom: 1px dashed #e8e8e8;
+}
+.dividing-line-text{
+  position: absolute;
+  top: 0;
+  left: 425px;
+  display: block;
+  height: 21px;
+  font-size: 12px;
+  text-align: center;
+  color: #999;
+  width: 84px;
+  background-color: #fff;
+}
+.form-wrap {
+  display: none;
+}
+.form-wrap.active {
+  display: block;
+}
+.list-title {
+  float: left;
+  height: 37px;
+  width: 112px;
+  padding-left: 30px;
+  line-height: 34px;
+  font-size: 14px;
+  color: #666;
+  text-align: left;
+}
+.list-title em{
+  color: #ff3434;
+}
+.list-input {
+  float: left;
+  width: 600px;
+  height: 57px;
+}
+.ui-tip-box{
+  height: 35px;
+  font-size: 14px;
+  color: #333333;
+  line-height: 35px;
+  float:left;
+  margin-left: -230px;
+}
+.ui-tip-box-triangle{
+  margin-top: 10px;
+  position: relative;
+  height: 0px;
+  width: 0px;
+  border-top: 8px solid transparent;
+  border-right: 12px solid #fffad2;
+  border-bottom: 8px solid transparent;
+  float:left;
+}
+.ui-tip-box-text{
+  background: #fffad2;
+  float:left;
+  font-size: 14px;
+  color: #333333;
+  height: 35px;
+  line-height: 36px;
+  padding-left: 12px;
+}
+.ui-tip-box-close{
+  background: #fffad2;
+  float:left;
+  color: #c67e59;
+  padding: 0 10px;
+  font-size: 28px;
+  font-weight: 200;
+  cursor: pointer;
+}
+.list-textarea{
+  height: 140px;
+}
+.list-input-template{
+  height: 37px;
+}
+.list-input-box {
+  position: relative;
+  height: 37px;
+}
+.date-icon {
+  position: absolute;
+  display: block;
+  height: 17px;
+  width: 15px;
+  left: 324px;
+  top: 10px;
+  background-image: url(/styles/images/member/account-icons.png);
+  background-position: -240px 0;
+  @include ratioBackground($url:'/styles/images/member/account-icons-ret.png', $size: 420px 420px, $x:-240px, $y:-0px);
+}
+.date-icon-m {
+  left: 122px;
+}
+.account-type-label {
+  display: block;
+  float: left;
+  margin: 2px 20px 0 0;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  width: 58px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+  cursor: pointer;
+  transition: all .25s ease-in-out;
+}
+.account-type-input{
+  display: none;
+}
+.account-type-input:checked+.account-type-label {
+  border-color: #2897ff;
+  background-color: #2897ff;
+  color: #fff;
+}
+
+.list-input-text {
+  display: block;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  height: 37px;
+  line-height: 37px;
+}
+.list-input-textarea{
+  display: block;
+  float: left;
+  margin-right: 20px;
+  padding: 10px;
+  height: 100px;
+  line-height: 18px;
+  font-size: 14px;
+  width: 328px;
+  border: 1px solid #d2d2d2;
+  background-color: #fff;
+}
+.list-input-text-l {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  padding: 0 0 0 10px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  width: 338px;
+  border: 1px solid #d2d2d2;
+  background-color: #fff;
+}
+.list-input-text-l .date-picker {
+  width: 248px;
+  padding-right: 40px;
+}
+select.list-input-text-l {
+  width: 350px;
+}
+.list-input-text-m {
+  display: block;
+  float: left;
+  margin-right: 10px;
+  padding: 0 10px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  width: 214px;
+  border: 1px solid #d2d2d2;
+  background-color: #fff;
+}
+.list-input-text-s {
+  display: block;
+  float: left;
+  margin-right: 10px;
+  padding: 0 0 0 10px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  width: 103px;
+  border: 1px solid #d2d2d2;
+  background-color: #fff;
+}
+.list-input-tips {
+  float: left;
+  height: 37px;
+  line-height: 37px;
+  font-size: 14px;
+  color: #999;
+  text-align: right;
+}
+
+.list-input-error {
+  display: none;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #ea554e;
+}
+
+.list-input-checkbox {
+  display: none;
+}
+.list-input-checkbox-style {
+  display: block;
+  float: left;
+  height: 22px;
+  width: 22px;
+  margin: 6px 10px 0 0;
+  background-image: url(/styles/images/member/icons.png);
+  background-position: -179px 0;
+  cursor: pointer;
+}
+.template-set {
+  display: block;
+  float: left;
+  height: 37px;
+  line-height: 37px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+.list-input-checkbox:checked+.list-input-checkbox-style {
+  background-position: -212px 0;
+}
+.radio-input {
+  display: none;
+}
+.radio-style {
+  display: block;
+  float: left;
+  height: 14px;
+  width: 14px;
+  margin-top:10px;
+  background-image: url(/styles/images/member/icons.png);
+  background-position: -150px 0;
+  cursor: pointer;
+}
+/*.radio-input:checked+.radio-style {
+  background-position: -150px -20px;
+}*/
+
+.radio-input-fn.active .radio-style {
+  background-position: -150px -20px;
+}
+.radio-word {
+  display: block;
+  float: left;
+  height: 37px;
+  padding-left: 5px;
+  line-height: 37px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.form-list-reckon {
+  margin-bottom: 40px;
+}
+.form-list-reckon-item {
+  max-width: 190px;
+  min-width: 125px;
+  float: left;
+  padding-right: 10px;
+}
+.form-list-reckon-item+.form-list-reckon-item {
+  padding-left: 30px;
+  border-left: 1px solid #e8e8e8;
+}
+.form-list-reckon-item+.form-list-reckon-item .form-list-reckon-value{
+  color: #333;
+}
+
+.form-list-reckon-key {
+  display: block;
+  font-size: 14px;
+  color: #999;
+}
+.form-list-reckon-value {
+  display: block;
+  font-size: 26px;
+  color: #ea544a;
+}
+.form-list-reckon-value em{
+  font-size: 18px;
+}
+.list-input-submit {
+  height: 40px;
+  width: 140px;
+  border: none;
+  color: #fff;
+  @include border-radius(4px);
+  background-color: #0080cc;
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+}
+.list-input-submit:hover {
+  background-color: #0067ad;
+}
+.list-input-submit.disabled{
+  background-color: #ccc;
+}
+.list-input-submit.disabled:hover{
+  background-color: #ddd;
+}
+.qt-ml10 {
+  margin-left: 10px;
+}
+
+//
+
+.stock-find-wrap{
+  max-height: 200px;
+  padding: 0 10px;
+  width: 328px;
+  overflow-y: scroll;
+  background-color: #fff;
+  border: 1px solid #d2d2d2;
+}
+
+.stock-find-item{
+  height: 37px;
+  line-height: 37px;
+  font-size:14px;
+  color: #333;
+  cursor: pointer;
+}
+.stock-find-item-name{
+  float: left;
+}
+.stock-find-item-number{
+  float: right;
+}
+.stock-find-item:hover{
+  background-color: #e6e6e6;
+}
+
+/* 记账成功弹层 */
+.success-float-layer{
+  display: none;
+}
+.success-float-mask{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  filter:alpha(opacity=70);
+  background-color: rgba(0,0,0,0.7);
+  z-index: 100;
+}
+.success-float-main{
+  position: fixed;
+  margin: -134px 0 0 -230px;
+  height: 152px;
+  width: 236px;
+  padding: 56px 34px 60px 190px;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  background-image: url(/styles/images/member/account-success-bg.png);
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  z-index: 101;
+}
+.success-float-close{
+  display: block;
+  position: absolute;
+  height: 13px;
+  width: 13px;
+  top: 13px;
+  right: 13px;
+  background-image: url(/styles/images/member/float-close.png);
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+.success-float-close:hover{
+  transform: rotate(90deg);
+}
+.success-float-title {
+  height: 37px;
+  width: 155px;
+  margin: 0 auto 8px;
+}
+.success-float-title-icon{
+  display: block;
+  float: left;
+  height: 37px;
+  width: 37px;
+  margin-right: 5px;
+  background-repeat: no-repeat;
+  background-image: url(/styles/images/member/account-success.png);
+}
+.success-float-title-word{
+  display: block;
+  float: left;
+  height: 37px;
+  line-height: 37px;
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
+}
+.success-float-sesc{
+  line-height: 20px;
+  font-size: 14px;
+  color: #999;
+  padding-bottom: 36px;
+  text-align: center;
+}
+.success-float-btn{
+  display: block;
+  height: 27px;
+  width: 110px;
+  border: 1px solid #fff;
+  font-size: 14px;
+  line-height: 27px;
+  text-align: center;
+  -webkit-border-radius: 27px;
+  -moz-border-radius: 27px;
+  border-radius: 27px;
+  background-color: #f0c;
+}
+.success-float-btn-iknow{
+  float: left;
+  background-color: #fff;
+  color: #999;
+  border-color: #e9e9e9;
+}
+.success-float-btn-down{
+  float: right;
+  background-color: #e9544a;
+  color: #fff;
+  border-color: #e9544a;
+}
+.go-app-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+  width: 114px;
+  height: 180px;
+  background-color: #fff;
+  background-image: url(/styles/images/member/keepaccounts-app.png);
+  background-repeat: no-repeat;
+  @include ratioBackground($bgcolor: #fff, $url:'/styles/images/member/keepaccounts-app-2x.png', $size: 114px 180px, $x:0px, $y:0px);
+  z-index: 20;
+}
+.go-app-icon-double11 {
+  position: absolute;
+  right: 20px;
+  bottom: 50px;
+  width: 110px;
+  height: 143px;
+  background-color: #fff;
+  background-image: url(/styles/images/member/keepaccounts_double11_normal.png);
+  background-repeat: no-repeat;
+  @include ratioBackground($bgcolor: #fff, $url:'/styles/images/member/keepaccounts_double11_double.png', $size: 110px 143px, $x:0px, $y:0px);
+  z-index: 20;
+}
+</style>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/global.css">
+<body>
+  <div class="container">
+      <div class="content-wrap">
+            <div class="content-section row">
+                <div class="mod-title">
+                    <div class="mod-title-left clearfix">
+                        <span class="mod-title-word">询价</span>
+                    </div>
+                </div>
+
+                <div class="mt15">
+                    <div>
+                        <form action="/member/add" method="post" role="ajaxfrom" class="form-wrap form-list-regular active">
+                            
+                            <ul class="form-list">
+                            	<li class="form-list-item">
+                            		<div class="list-title"></div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                           <input type="radio" name="period_type" value="1">我是买方
+										   &nbsp;&nbsp;		
+                                           <input type="radio" name="period_type" value="2">我是卖方<br>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">产品名称</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="platformInput" class="list-input-text-l ac_input" name="product_name" placeholder="填写产品名称 全拼/简拼/汉字" data-valid="notempty|companyName" value="" autocomplete="off">
+                                                                                    
+                                        </div>
+                                        <div class="list-input-error" style="display: block;">
+                                            <em></em>
+                                            <span>平台名称不能为空</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">产品分类</div>
+                                    <div class="list-input">
+	                                    <div class="list-input-box">
+	                                    	<span class="select-box">
+		                                    	<select name="pname" class="select">
+			                					<option value="0">顶级分类</option>
+		                                        <foreach name="selectlist" item="selectlist">
+								                    <option value="<?php echo @$selectlist['id'];?>">{$selectlist.name}
+								                    </option>
+								                    <if condition = "$selectlist['subname']">
+								                        <foreach name="selectlist.subname" item="subname">
+								                            <option value="{$key}">&nbsp;&nbsp;├{$subname}</option>
+								                        </foreach>
+								                    </if>
+								                </foreach>
+								                </select>
+							                </span>
+							            </div>  
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">产品单位</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="titleInput" class="list-input-text-l" name="invest[title]" placeholder="" data-valid="notempty|reg_cn_len:1:200" value="">
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>标的名称不能为空</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">产品数量</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="titleInput" class="list-input-text-l" name="invest[title]" placeholder="" data-valid="notempty|reg_cn_len:1:200" value="">
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>标的名称不能为空</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">开始询价时间</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <em class="date-icon"></em>
+                                            <input type="text" id="beginDateInput" class="list-input-text-l" name="invest[begin_date]" placeholder="" value="2018-12-15" data-valid="notempty" onclick="WdatePicker( { minDate:'2011-01-01'} )">
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>输入错误</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- <li class="form-list-item">
+                                    <div class="list-title">还款方式</div>
+                                    <div class="list-input list-input-for-tip">
+                                        <div class="list-input-box repayment-method-fn">
+                                            <select id="payWaySelect" class="list-input-text-l" name="invest[pay_way]">
+                                            <input type="text" id="replyDayInput" class="list-input-text-s" name="invest[reply_day]" placeholder="" maxlength="2" style="display: none;" value="">
+                                            <span class="list-input-tips" style="display: none;">日</span>
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>输入错误</span>
+                                        </div>
+                                    </div>
+                                </li> -->
+                                <li class="form-list-item">
+                                    <div class="list-title">预期价格（元）</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="amountInput" class="list-input-text-l" name="invest[amount]" placeholder="" data-valid="notempty|floatNumber|numberRegion:0:1000000" value="">
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>投资金额不能为空</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">地址要求</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="rateInput" class="list-input-text-l" name="invest[rate]" placeholder="" data-valid="notempty|floatNumber" value="">
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>年化收益不能为空</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title">询价期限</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="periodInput" class="list-input-text-m" name="invest[period]" placeholder="" data-valid="notempty|number|numberRegion:1" value="">
+                                            <select id="periodType" name="invest[period_type]" class="list-input-text-s">
+                                                <option value="1" selected="selected">月</option>
+                                                <option value="2">天</option>
+                                            </select>
+                                            
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span>投资期限不能为空</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dividing-line-item">
+                                    <div class="dividing-line"></div>
+                                    <span class="dividing-line-text">以下选填</span>
+                                </li>
+                                
+                                <li class="form-list-item">
+                                    <div class="list-title">预付货款</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="text" id="rewardInput" class="list-input-text-s" name="invest[reward]" placeholder="选填" value="">
+                                            <select id="rewardTypeSelect" name="invest[reward_type]" class="list-input-text-s">
+                                                <option value="1">%</option>
+                                                <option value="2">元</option>
+                                            </select>
+                                            <select id="rewardWaySelect" name="invest[reward_way]" class="list-input-text-s">
+                                                <option value="1">起息付</option>
+                                                <option value="2">每期付</option>
+                                                <option value="3">到期付</option>
+                                            </select>
+                                        </div>
+                                        <div class="list-input-error">
+                                            <em></em>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                                          
+                                <li class="form-list-item list-textarea">
+                                    <div class="list-title">备注</div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <textarea name="invest[remark]" id="p2pRemarkInput" placeholder="选填（不超过100字）" class="list-input-textarea" maxlength="100"></textarea>
+                                        </div>
+                                    </div>
+                                </li>                         
+                                <li class="dividing-line-item">
+                                    <div class="dividing-line"></div>
+                                </li>
+                                <li class="form-list-item">
+                                    <div class="list-title"></div>
+                                    <div class="list-input">
+                                        <div class="list-input-box">
+                                            <input type="submit" class="list-input-submit" id="regularSubmit" value="完成">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+                                
+            </div>
+        </div>
+  </div>
+</body>
+</html>
